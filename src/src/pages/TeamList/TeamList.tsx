@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch } from '../../../hooks';
 import { getTeams } from './redux/teamListSlice';
+import { FlexboxContainer, FlexboxItem } from 'ui-components';
 
-function TeamList() {
+
+const TeamList = () => {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getTeams());
   }, [])
-  
+
   return (
-    <div>TeamList</div>
+    <FlexboxContainer flexDirection="column" alignItems="flex-start" justifyContent="flex-start">
+      <FlexboxItem>Teams</FlexboxItem>
+      <FlexboxItem>
+          Table goes here
+      </FlexboxItem>
+    </FlexboxContainer>
+
   )
 }
 
