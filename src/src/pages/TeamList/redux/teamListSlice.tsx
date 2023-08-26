@@ -18,7 +18,7 @@ const initialState: InitialStateType = {
 export const getTeams = createAsyncThunk('getTeams', async () => {
     try {
         const response = await fetchData('/Team'); // Replace with your API URL
-        return response.data;
+        return response;
     }
     catch (error: any) {
         console.log("Error in GET Team")
