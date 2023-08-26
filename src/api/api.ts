@@ -6,6 +6,12 @@ const baseUrl = 'https://cpesservicewebapi.azurewebsites.net/api'; // Replace wi
 const api = axios.create({
     baseURL: baseUrl,
 });
+interface Response {
+    refreshToken : string,
+    token : string,
+    userId : string,
+    data : object
+}
 
 export const fetchData = async (endpoint:string) => {
     // eslint-disable-next-line no-useless-catch
@@ -17,12 +23,15 @@ export const fetchData = async (endpoint:string) => {
     }
 };
 
-export const postData = async (endpoint:string, data:any) => {
+export const loginData = async (endpoint:string, payload:any) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await api.post(endpoint, data);
+        console.log(payload, "payload")
+        const response : Response = await api.post(endpoint, {email : payload.username , password : payload.password} );
+        console.log(response, "response")
         return response.data;
     } catch (error) {
+        console.log(error, "error")
         throw error;
     }
 };

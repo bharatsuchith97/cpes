@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FlexboxContainer, FlexboxItem, Card, TextField, Button } from 'ui-components';
+import { loginEmployees } from '../EmployeeList/redux/employeeListSlice';
+import { useAppDispatch } from '../../../hooks';
 import './LoginPage.css';
 
 interface LoginPageProps {
@@ -14,6 +16,7 @@ interface User {
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
+    const dispatch = useAppDispatch();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -36,7 +39,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
             }
 
             // Set the login status to true and store the user object in the state
-            localStorage.setItem('user', JSON.stringify(user)); // Store the user object in localStorage
+            // localStorage.setItem('user', JSON.stringify(user)); // Store the user object in localStorage
+            dispatch(loginEmployees({username : username , password : password}))
             setIsLoggedIn(true);
             navigate('/');
         } else {

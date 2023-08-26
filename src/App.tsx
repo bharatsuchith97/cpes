@@ -11,10 +11,26 @@ import TeamList from './src/pages/TeamList/TeamList';
 
 function App() {
   // Assume you have a state that holds the role of the current user
-  const userString = localStorage.getItem('user');
+  const userString  = localStorage.getItem('authDetails');
   const [isLoggedIn, setIsLoggedIn] = useState(userString ? true : false);
   const user = userString ? JSON.parse(userString) : null;
-
+  let content;
+  switch (user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
+    case 'Employees':
+      content = <Route
+      path="/employees"
+      element={<EmployeeList />}
+    />;
+      break;
+    case 'Admin':
+      content = <Route
+      path="/teams"
+      element={<TeamList />}
+      />
+      break;
+    default : <></>
+  }
+  console.log(user, "abhijeet")
   return (
     <Router>
       <FlexboxContainer justifyContent="flex-start" alignItems="flex-start" style={{ height: "100vh" }} >
@@ -26,7 +42,7 @@ function App() {
             <FlexboxItem className="App_header Full_width">
               <FlexboxContainer justifyContent="space-between" style={{ height: "40px", marginLeft: "1rem", marginRight: "1rem" }}>
                 <FlexboxItem>LiSEC.CPES</FlexboxItem>
-                {user && <FlexboxItem className="Logged_in_as">Logged in as: {user?.username}</FlexboxItem>}
+                {user && <FlexboxItem className="Logged_in_as">Logged in as: {user?.email}</FlexboxItem>}
               </FlexboxContainer>
             </FlexboxItem>
             <FlexboxItem className="Full_width" padding="1rem">
@@ -36,15 +52,7 @@ function App() {
                   path="/"
                   element={isLoggedIn ? <Home /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />}
                 />
-                {/* Protected routes with role-based access control */}
-                {['admin','manager'].includes(user?.role) && <Route
-                  path="/employees"
-                  element={<EmployeeList />}
-                />}
-                {['admin'].includes(user?.role) && <Route
-                  path="/teams"
-                  element={<TeamList />}
-                />}
+                {content}
               </Routes>
             </FlexboxItem>
           </FlexboxContainer>
