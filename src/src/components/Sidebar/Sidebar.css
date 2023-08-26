@@ -1,0 +1,26 @@
+.MenuItem {
+    color:black;
+    width: 100%;
+}
+.MenuItem:hover{
+    background-color: #e7f3fc;
+    color:black;
+    width: 100%;
+    cursor: pointer;
+}
+.Full_width{
+    width: 100%;
+}
+.Sidebar_heading{
+    color: #871b4c;
+    font-family: Roboto;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.67;
+    letter-spacing: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

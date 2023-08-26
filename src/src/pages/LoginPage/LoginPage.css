@@ -1,0 +1,17 @@
+.LoginPage_login-card{
+    background-color: white;
+    margin-top: 8rem;
+}
+.Full_height{
+    height: 100%;
+}
+.LoginPage_heading{
+    color:#871b4c;
+    font-family: Roboto;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.67;
+  letter-spacing: normal;
+}
