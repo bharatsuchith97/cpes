@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { getEmployees, getTeamLeads, getTeams } from './redux/teamListSlice';
+import { getEmployees, getTeamLeads, getTeams, postTeam } from './redux/teamListSlice';
 import { FlexboxContainer, FlexboxItem, Button } from 'ui-components';
 import { Table, Modal, Form, Input, Select } from 'antd';
 import { RootState } from '../../../store';
@@ -43,7 +43,7 @@ const TeamList = () => {
   };
 
   const handleOk = (values: any) => {
-    console.log('Received values:', values);
+    dispatch(postTeam(values))
     setVisible(false);
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -59,7 +59,7 @@ const TeamList = () => {
       <FlexboxContainer flexDirection="column" alignItems="flex-start" gap="2.5rem">
         <FlexboxItem style={{ width: "100%" }}>
           <FlexboxContainer justifyContent="space-between">
-            <FlexboxItem>Teams</FlexboxItem>
+            <FlexboxItem style={{fontWeight:500,fontSize:20}}>Teams</FlexboxItem>
             <FlexboxItem>
               <Button
                 onClick={showModal}
@@ -74,6 +74,7 @@ const TeamList = () => {
             dataSource={dataSource}
             columns={columns}
             pagination={{ pageSize: 10 }}
+            scroll={{ y: '400px' }} 
           />
         </FlexboxItem>
       </FlexboxContainer>
@@ -109,7 +110,7 @@ const TeamList = () => {
 
           <Form.Item
             label="Select Team Lead"
-            name="dropdownTeamLead"
+            name="teamLeadId"
             rules={[
               {
                 required: true,
@@ -118,13 +119,16 @@ const TeamList = () => {
             ]}
           >
             <Select placeholder="Select a team lead">
-              {teamLeads.length > 0 && teamLeads?.map((teamLead) => <Select.Option value={teamLead?.teamLeadId}>{teamLead?.teamLeadId}</Select.Option>)}
+              {teamLeads.length > 0 && teamLeads?.map((teamLead) => <Select.Option value={teamLead?.teamLeadId}>
+                {employees?.filter((employee)=> employee.id === teamLead?.employeeId)[0].firstName}&nbsp;
+                {employees?.filter((employee)=> employee.id === teamLead?.employeeId)[0].lastName}
+                </Select.Option>)}
             </Select>
           </Form.Item>
 
           <Form.Item
             label="Select team members"
-            name="dropdownTeamMembers"
+            name="teamMemberIds"
             rules={[
               {
                 required: true,
@@ -137,17 +141,18 @@ const TeamList = () => {
               placeholder="Select multiple team members"
               style={{ width: '100%' }}
             >
-              {employees.length > 0 && employees?.map((employee) => <Select.Option value={employee?.id}>{employee?.firstName}&nbsp;{employee?.lastName}</Select.Option>)}
+              {employees.length > 0 && employees?.map((employee) => 
+              <Select.Option value={employee?.id}>{employee?.firstName}&nbsp;{employee?.lastName}</Select.Option>)}
             </Select>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 17, span: 0 }} style={{ marginTop: "2.5rem" }}>
+          <Form.Item wrapperCol={{ offset: 16, span: 16 }} style={{ marginTop: "2.5rem" }}>
             <Button type="secondary" onClick={handleCancel}>
               Cancel
             </Button>
             &nbsp;
             <Button type="primary" htmlType="submit">
-              Submit
+              Create Team
             </Button>
           </Form.Item>
 

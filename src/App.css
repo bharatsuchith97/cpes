@@ -11,5 +11,8 @@
 }
 .Logged_in_as{
   color:black;
-  
+}
+.LoggedinUser{
+  color:#871b4c;
+  font-weight:500;
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchData, sendData } from '../../../../api/api';
-import { IEmployee, ITeam, ITeamLead } from '../types/teamListTypes';
+import { IEmployee, ITeam, ITeamLead } from '../types/teamLeadListTypes';
 import { notification } from 'antd';
 
 interface InitialStateType {
@@ -50,33 +50,33 @@ export const getEmployees = createAsyncThunk('getEmployees', async () => {
     }
 });
 
-export const postTeam = createAsyncThunk('postTeam', async (postData: any,{dispatch}) => {
+export const postTeamLead = createAsyncThunk('postTeamLead', async (postData: any,{dispatch}) => {
     try {
-        const response = await sendData('/Team', postData);
+        const response = await sendData('/TeamLead', postData);
         if(response.status === 200){
             notification.success({
-                message: 'Team created successfully',
+                message: 'Team Lead created successfully',
                 placement: 'topRight',
             });
-        dispatch(getTeams());
+        dispatch(getTeamLeads());
         return response.data;
         }
         notification.error({
-            message: 'Team could not be created',
+            message: 'Team Lead could not be created',
             placement: 'topRight',
         });
     }
     catch (error) {
         notification.error({
-            message: 'Team could not be created',
+            message: 'Team Lead could not be created',
             placement: 'topRight',
         });
-        console.log("Error in POST Team")
+        console.log("Error in POST Team Lead")
     }
 }
 );
 
-const teamListSlice = createSlice({
+const teamLeadListSlice = createSlice({
     name: 'teams',
     initialState,
     reducers: {
@@ -126,13 +126,13 @@ const teamListSlice = createSlice({
         });
 
         // POST Team
-        builder.addCase(postTeam.pending, (state) => {
+        builder.addCase(postTeamLead.pending, (state) => {
             state.isLoading = true;
         });
-        builder.addCase(postTeam.fulfilled, (state) => {
+        builder.addCase(postTeamLead.fulfilled, (state) => {
             state.isLoading = false;
         });
-        builder.addCase(postTeam.rejected, (state, action) => {
+        builder.addCase(postTeamLead.rejected, (state, action) => {
             state.isLoading = false;
             state.errorMessage = action.error.message;
         });
@@ -140,4 +140,4 @@ const teamListSlice = createSlice({
     }
 });
 
-export default teamListSlice.reducer; // to store
+export default teamLeadListSlice.reducer; // to store

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IEmployee } from '../types/employeeListTypes';
-import { fetchData } from '../../../../api/api';
+import { fetchData, sendData } from '../../../../api/api';
+import { notification } from 'antd';
 
 interface InitialStateType {
     isLoading: boolean;
-    errorMessage: string|undefined;
+    errorMessage: string | undefined;
     employees: Array<IEmployee>;
 }
 
@@ -25,6 +26,31 @@ export const getEmployees = createAsyncThunk('getEmployees', async () => {
     }
 });
 
+export const postEmployee = createAsyncThunk('postEmployee', async (postData: any,{dispatch}) => {
+        try {
+            const response = await sendData('/Employees/AddEmployee', postData);
+            if(response?.status === 200){
+                notification.success({
+                    message: 'Employee created successfully',
+                    placement: 'topRight', 
+                });
+                dispatch(getEmployees());
+                return response.data;
+            }
+            notification.error({
+                message: 'Employee already exists',
+                placement: 'topRight',
+            });
+        }
+        catch (error) {
+            notification.error({
+                message: 'Employee already exists',
+                placement: 'topRight',
+            });
+            console.log("Error in POST Employee")
+        }
+    }
+);
 
 const employeeListSlice = createSlice({
     name: 'employees',
@@ -44,9 +70,21 @@ const employeeListSlice = createSlice({
 
         builder.addCase(getEmployees.rejected, (state, action) => {
             state.isLoading = false;
-            state.errorMessage = action.error.message;        
+            state.errorMessage = action.error.message;
         });
-       
+
+        // POST Employee
+        builder.addCase(postEmployee.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(postEmployee.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(postEmployee.rejected, (state, action) => {
+            state.isLoading = false;
+            state.errorMessage = action.error.message;
+        });
+
     }
 });
 

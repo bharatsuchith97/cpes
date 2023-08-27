@@ -1,44 +1,18 @@
 // LoginPage.tsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FlexboxContainer, FlexboxItem, Card, TextField, Button } from 'ui-components';
+import { loginEmployees } from './redux/loginSlice';
+import { useAppDispatch } from '../../../hooks';
 import './LoginPage.css';
 
-interface LoginPageProps {
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface User {
-    username: string;
-    role: string; // Assuming the role can be 'admin', 'manager', or 'employee'
-}
-
-const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
+const LoginPage: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     const handleLogin = () => {
         if (username.trim() !== '' && password.trim() !== '') {
-            const user: User = {
-                username,
-                role: '', // Change this role based on your actual login system
-            };
-
-            switch (username) {
-                case 'admin':
-                case 'manager':
-                case 'employee':
-                    user.role = username;
-                    break;
-                default:
-                    user.role = "employee";
-            }
-
-            // Set the login status to true and store the user object in the state
-            localStorage.setItem('user', JSON.stringify(user)); // Store the user object in localStorage
-            setIsLoggedIn(true);
-            navigate('/');
+            dispatch(loginEmployees({username : username , password : password}))
         } else {
             // Show an error message or handle login failure
             alert('Invalid username or password');

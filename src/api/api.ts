@@ -7,6 +7,7 @@ const api = axios.create({
     baseURL: baseUrl,
 });
 
+
 export const fetchData = async (endpoint:string) => {
     // eslint-disable-next-line no-useless-catch
     try {
@@ -18,14 +19,14 @@ export const fetchData = async (endpoint:string) => {
 };
 
 export const sendData = async (endpoint:string, data:any) => {
-    // eslint-disable-next-line no-useless-catch
     try {
-        const response = await api.post(endpoint, data);
-        return response.data;
+        const response = await api.post(endpoint, data );
+        return response;
     } catch (error) {
+        console.log(error, "error")
         throw error;
     }
-};
+}
 
 export const updateData = async (endpoint:string, data:any) => {
     // eslint-disable-next-line no-useless-catch
