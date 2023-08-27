@@ -2,10 +2,17 @@
   width:100%;
 }
 .App_header{
-  border-bottom: 1px solid #871b4c;
+  border-bottom: 2px solid #871b4c;
+}
+.Header_title{
   color:#871b4c;
+  font-size: 20px;
+  font-weight: bold;
 }
 .Logged_in_as{
   color:black;
-  
+}
+.LoggedinUser{
+  color:#871b4c;
+  font-weight:500;
 }

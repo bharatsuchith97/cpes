@@ -20,27 +20,28 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
         window.location.href="/"
     }
     return (
-        <FlexboxContainer flexDirection="column" style={{ width: "200px", backgroundColor: "#f6f9fc", height: "100vh" }} justifyContent="space-between" alignItems="flex-start">
+        <FlexboxContainer flexDirection="column" style={{ width: "200px", backgroundColor: "#871b4c", height: "100vh" }} justifyContent="space-between" alignItems="flex-start">
             <FlexboxItem className="Full_width">
                 <FlexboxContainer flexDirection="column" gap="0.313rem" margin="1rem">
                     <FlexboxItem className="Full_width">
                         <FlexboxContainer flexDirection="column" alignItems="flex-start" className="Full_width">
-                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'admin' && (
+                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && (
                                 <>
-                                    <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/')}>Admin Dashboard</FlexboxItem>
-                                    <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
-                                    <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/teams')}>Teams</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/')}>Admin Dashboard</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/teams')}>Teams</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/teamleads')}>Team Leads</FlexboxItem>
                                 </>
                             )}
-                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'manager' && (
+                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "manager" && (
                                 <>
-                                    <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/')}>Home</FlexboxItem>
-                                    <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/')}>Home</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
                                 </>
                             )}
-                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Employee' && (
+                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && (
                                 <>
-                                    <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/')}>Home</FlexboxItem>
+                                    <FlexboxItem className="MenuItem" padding="1rem" onClick={()=>navigate('/')}>Home</FlexboxItem>
                                 </>
                             )}
 
@@ -48,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                     </FlexboxItem>
                 </FlexboxContainer>
             </FlexboxItem>
-            <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>logout()}>Logout</FlexboxItem>
+            <FlexboxItem className="MenuItem_logout" padding="1rem" onClick={()=>logout()}>Logout</FlexboxItem>
         </FlexboxContainer>
     );
 };

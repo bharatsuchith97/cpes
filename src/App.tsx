@@ -1,4 +1,3 @@
-import { useState , useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './src/pages/Home/Home';
 import EmployeeList from './src/pages/EmployeeList/EmployeeList';
@@ -8,48 +7,25 @@ import Sidebar from './src/components/Sidebar/Sidebar';
 import { FlexboxContainer, FlexboxItem } from 'ui-components';
 import './App.css';
 import TeamList from './src/pages/TeamList/TeamList';
+import TeamLeadList from './src/pages/TeamLeadList/TeamLeadList';
 
 function App() {
-  // Assume you have a state that holds the role of the current user
-  const userString  = localStorage.getItem('authDetails');
-  const [isLoggedIn, setIsLoggedIn] = useState(userString ? true : false);
+  const userString = localStorage.getItem('authDetails');
   const user = userString ? JSON.parse(userString) : null;
-  let content;
-  useEffect(() => {
-    handleContent()
-  },[userString])
-  const handleContent = () => {
-    switch (user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
-      case 'Employees':
-        console.log(user , "userString")
-        content = <Route
-        path="/employees"
-        element={<EmployeeList />}
-      />;
-        break;
-      case 'Admin':
-        content = <Route
-        path="/teams"
-        element={<TeamList />}
-        />
-        break;
-      default : <></>
-    }
-  }
 
-  console.log(user, "abhijeet")
+
   return (
     <Router>
-      <FlexboxContainer justifyContent="flex-start" alignItems="flex-start" style={{ height: "100vh" }} >
+      <FlexboxContainer justifyContent="flex-start" alignItems="flex-start" style={{ height: "100vh", fontFamily: "Roboto" }} >
         <FlexboxItem>
-          {isLoggedIn && <Sidebar user={user} />}
+          {user && <Sidebar user={user} />}
         </FlexboxItem>
         <FlexboxItem className="Full_width">
           <FlexboxContainer flexDirection="column" className="Full_width" justifyContent="center" alignItems="center">
             <FlexboxItem className="App_header Full_width">
               <FlexboxContainer justifyContent="space-between" style={{ height: "40px", marginLeft: "1rem", marginRight: "1rem" }}>
-                <FlexboxItem>LiSEC.CPES</FlexboxItem>
-                {user && <FlexboxItem className="Logged_in_as">Logged in as: {user?.email}</FlexboxItem>}
+                <FlexboxItem className="Header_title">LiSEC.CPES</FlexboxItem>
+                {user && <FlexboxItem className="Logged_in_as">Logged in as: <span className="LoggedinUser">{user?.email}</span></FlexboxItem>}
               </FlexboxContainer>
             </FlexboxItem>
             <FlexboxItem className="Full_width" padding="1rem">
@@ -57,9 +33,23 @@ function App() {
                 {/* Public route accessible by all */}
                 <Route
                   path="/"
-                  element={isLoggedIn ? <Home /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />}
+                  element={user ? <Home /> : <LoginPage />}
                 />
-                {content}
+                {/* Admin Routes */}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && <Route
+                  path="/teams"
+                  element={<TeamList />}
+                />}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && <Route
+                  path="/employees"
+                  element={<EmployeeList />}
+                />}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && <Route
+                  path="/teamleads"
+                  element={<TeamLeadList />}
+                />}
+                {/* Team Lead Routes */}
+                {/* Employee Routes */}
               </Routes>
             </FlexboxItem>
           </FlexboxContainer>
