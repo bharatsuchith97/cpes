@@ -26,7 +26,7 @@ const initialState: InitialStateType = {
 export const getEmployees = createAsyncThunk('getEmployees', async () => {
     try {
         const response = await fetchData('/Employees'); // Replace with your API URL
-        return response.data;
+        return response;
     }
     catch (error: any) {
         console.log("Error in GET Employee")
