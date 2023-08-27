@@ -38,6 +38,7 @@ export const loginEmployees = createAsyncThunk('loginEmployees', async (data : o
     try{
         const response : Response = await loginData('/Account/Login', data); 
         const user = jwtDecode(response?.token);
+        debugger
         localStorage.setItem("authDetails" , JSON.stringify(user));
     }
     catch(error : any){

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './src/pages/Home/Home';
 import EmployeeList from './src/pages/EmployeeList/EmployeeList';
@@ -15,21 +15,28 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(userString ? true : false);
   const user = userString ? JSON.parse(userString) : null;
   let content;
-  switch (user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
-    case 'Employees':
-      content = <Route
-      path="/employees"
-      element={<EmployeeList />}
-    />;
-      break;
-    case 'Admin':
-      content = <Route
-      path="/teams"
-      element={<TeamList />}
-      />
-      break;
-    default : <></>
+  useEffect(() => {
+    handleContent()
+  },[userString])
+  const handleContent = () => {
+    switch (user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
+      case 'Employees':
+        console.log(user , "userString")
+        content = <Route
+        path="/employees"
+        element={<EmployeeList />}
+      />;
+        break;
+      case 'Admin':
+        content = <Route
+        path="/teams"
+        element={<TeamList />}
+        />
+        break;
+      default : <></>
+    }
   }
+
   console.log(user, "abhijeet")
   return (
     <Router>
