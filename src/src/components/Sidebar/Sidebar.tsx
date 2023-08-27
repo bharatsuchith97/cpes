@@ -8,10 +8,9 @@ interface SidebarProps {
     user: {
         username: string;
         role: string;
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role" : string;
     };
 }
-
-
 
 const Sidebar: React.FC<SidebarProps> = ({ user }) => {
     const navigate = useNavigate();
@@ -26,20 +25,20 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                 <FlexboxContainer flexDirection="column" gap="0.313rem" margin="1rem">
                     <FlexboxItem className="Full_width">
                         <FlexboxContainer flexDirection="column" alignItems="flex-start" className="Full_width">
-                            {user.role === 'admin' && (
+                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'admin' && (
                                 <>
                                     <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/')}>Admin Dashboard</FlexboxItem>
                                     <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
                                     <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/teams')}>Teams</FlexboxItem>
                                 </>
                             )}
-                            {user.role === 'manager' && (
+                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'manager' && (
                                 <>
                                     <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/')}>Home</FlexboxItem>
                                     <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
                                 </>
                             )}
-                            {user.role === 'employee' && (
+                            {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Employee' && (
                                 <>
                                     <FlexboxItem className="MenuItem" padding="0.625rem" onClick={()=>navigate('/')}>Home</FlexboxItem>
                                 </>

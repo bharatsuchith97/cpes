@@ -1,12 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IEmployee } from '../types/employeeListTypes';
-import { fetchData } from '../../../../api/api';
+import { fetchData, loginData } from '../../../../api/api';
+import jwtDecode from 'jwt-decode';
 
 interface InitialStateType {
     isLoading: boolean;
     errorMessage: string|undefined;
     employees: Array<IEmployee>;
+}
+
+interface Response {
+    refreshToken : string,
+    token : string,
+    userId : string,
+    data : object
 }
 
 const initialState: InitialStateType = {
@@ -25,6 +33,18 @@ export const getEmployees = createAsyncThunk('getEmployees', async () => {
     }
 });
 
+export const loginEmployees = createAsyncThunk('loginEmployees', async (data : object) => {
+    console.log(data, "data")
+    try{
+        const response : Response = await loginData('/Account/Login', data); 
+        const user = jwtDecode(response?.token);
+        debugger
+        localStorage.setItem("authDetails" , JSON.stringify(user));
+    }
+    catch(error : any){
+        console.log("Error in POST Employee")
+    }
+} )
 
 const employeeListSlice = createSlice({
     name: 'employees',
