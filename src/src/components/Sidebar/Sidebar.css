@@ -1,10 +1,11 @@
 .MenuItem {
-    color:black;
+    color:white;
     width: 100%;
+    border-bottom: 1px solid black;
 }
 .MenuItem:hover{
-    background-color: #e7f3fc;
-    color:black;
+    background-color: #5f1235;
+    color:white;
     width: 100%;
     cursor: pointer;
 }
@@ -23,4 +24,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.MenuItem_logout{
+    color:white;
+    width: 100%;
+    border-top: 1px solid black;
 }

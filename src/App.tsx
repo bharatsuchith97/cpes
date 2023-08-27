@@ -17,7 +17,7 @@ function App() {
 
   return (
     <Router>
-      <FlexboxContainer justifyContent="flex-start" alignItems="flex-start" style={{ height: "100vh" }} >
+      <FlexboxContainer justifyContent="flex-start" alignItems="flex-start" style={{ height: "100vh",  fontFamily: "Roboto" }} >
         <FlexboxItem>
           {isLoggedIn && <Sidebar user={user} />}
         </FlexboxItem>
@@ -25,7 +25,7 @@ function App() {
           <FlexboxContainer flexDirection="column" className="Full_width" justifyContent="center" alignItems="center">
             <FlexboxItem className="App_header Full_width">
               <FlexboxContainer justifyContent="space-between" style={{ height: "40px", marginLeft: "1rem", marginRight: "1rem" }}>
-                <FlexboxItem>LiSEC.CPES</FlexboxItem>
+                <FlexboxItem className="Header_title">LiSEC.CPES</FlexboxItem>
                 {user && <FlexboxItem className="Logged_in_as">Logged in as: {user?.username}</FlexboxItem>}
               </FlexboxContainer>
             </FlexboxItem>

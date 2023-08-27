@@ -17,7 +17,7 @@ export const fetchData = async (endpoint:string) => {
     }
 };
 
-export const postData = async (endpoint:string, data:any) => {
+export const sendData = async (endpoint:string, data:any) => {
     // eslint-disable-next-line no-useless-catch
     try {
         const response = await api.post(endpoint, data);
@@ -27,7 +27,7 @@ export const postData = async (endpoint:string, data:any) => {
     }
 };
 
-export const putData = async (endpoint:string, data:any) => {
+export const updateData = async (endpoint:string, data:any) => {
     // eslint-disable-next-line no-useless-catch
     try {
         const response = await api.put(endpoint, data);
