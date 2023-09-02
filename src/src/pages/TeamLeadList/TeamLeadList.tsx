@@ -36,7 +36,7 @@ const TeamLeadList = () => {
   const dataSource = teamLeads ? teamLeads?.map((teamLead: IEmployee) => ({
     key: teamLead?.id ?? "-",
     teamLeadId: teamLead?.id ?? '-',
-    // employeeId: teamLead.id,
+    employeeId: teamLead.id,
     teamLeadFirstName: teamLead?.firstName ?? "-",
     teamLeadLastName: teamLead?.lastName ?? "-",
     teamId: teamLead?.teamId ?? '-',
@@ -44,7 +44,7 @@ const TeamLeadList = () => {
   })) : [];
 
   const columns = [
-    { title: 'Team Lead ID', dataIndex: 'teamLeadId', key: 'teamLeadId' },
+    // { title: 'Team Lead ID', dataIndex: 'teamLeadId', key: 'teamLeadId' },
     { title: 'First Name', dataIndex: 'teamLeadFirstName', key: 'teamLeadFirstName' },
     { title: 'Last name', dataIndex: 'teamLeadLastName', key: 'teamLeadLastName' },
     { title: 'Team ID', dataIndex: 'teamId', key: 'teamId' },

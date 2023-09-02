@@ -11,6 +11,7 @@ import TeamLeadList from './src/pages/TeamLeadList/TeamLeadList';
 import TeamLeadDashboard from './src/pages/TeamLeadDashboard/TeamLeadDashboard';
 import EmployeeDashboard from './src/pages/EmployeeDashboard/EmployeeDashboard';
 import EvaluationList from './src/pages/EvaluationList/EvaluationList';
+import Employee from './src/pages/Employee/Employee';
 
 function App() {
   const userString = localStorage.getItem('authDetails');
@@ -38,6 +39,7 @@ function App() {
                   path="/"
                   element={!user && <LoginPage />}
                 />
+                
                 {/* Admin Routes */}
                 {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
                   path="/dashboard"
@@ -59,6 +61,10 @@ function App() {
                   path="evaluations"
                   element={<EvaluationList />}
                 />}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
+                  path="employees/:employeeId"
+                  element={<Employee />}
+                />}
 
                 {/* Team Lead Routes */}
                 {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Manager") && <Route
@@ -73,6 +79,11 @@ function App() {
                   path="/evaluations"
                   element={<EvaluationList />}
                 />}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Manager") && <Route
+                  path="employees/:employeeId"
+                  element={<Employee />}
+                />}
+
                 {/* Employee Routes */}
                 {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && <Route
                   path="/dashboard"

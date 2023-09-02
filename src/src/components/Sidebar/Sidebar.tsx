@@ -16,7 +16,6 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
     const navigate = useNavigate();
     const url = new URL( window.location.href);
     const path = url.pathname;
-console.log("path",path)
     const logout = () =>{
         localStorage.clear();
         window.location.href="/"
@@ -30,7 +29,7 @@ console.log("path",path)
                             {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && (
                                 <>
                                     <FlexboxItem className={path === "/dashboard" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/dashboard')}>Dashboard</FlexboxItem>
-                                    <FlexboxItem className={path === "/employees" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
+                                    <FlexboxItem className={(path === "/employees" || (path.split('/').length>1 && path.split('/')[1] === "employees")) ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
                                     <FlexboxItem className={path === "/teams" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/teams')}>Teams</FlexboxItem>
                                     <FlexboxItem className={path === "/teamleads" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/teamleads')}>Team Leads</FlexboxItem>
                                     <FlexboxItem className={path === "/evaluations" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/evaluations')}>Evaluations</FlexboxItem>
@@ -41,7 +40,7 @@ console.log("path",path)
                             user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Manager") &&(
                                 <>
                                     <FlexboxItem className={path === "/dashboard" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/dashboard')}>Dashboard</FlexboxItem>
-                                    <FlexboxItem className={path === "/employees" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
+                                    <FlexboxItem className={(path === "/employees" || (path.split('/').length>1 && path.split('/')[1] === "employees")) ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/employees')}>Employees</FlexboxItem>
                                     <FlexboxItem className={path === "/evaluations" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/evaluations')}>Evaluations</FlexboxItem>
                                 </>
                             )}
