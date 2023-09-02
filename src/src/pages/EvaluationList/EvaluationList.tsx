@@ -94,7 +94,7 @@ function EvaluationList() {
                     dataSource={dataSource}
                     columns={columns}
                     pagination={{ pageSize: 10 }}
-                    scroll={{ y: '400px' }}
+                    scroll={{ y: '450px' }}
                 />
             </FlexboxItem>
         </FlexboxContainer>
