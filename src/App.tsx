@@ -31,7 +31,7 @@ function App() {
                 {user && <FlexboxItem className="Logged_in_as">Logged in as: <span className="LoggedinUser">{user?.email}</span></FlexboxItem>}
               </FlexboxContainer>
             </FlexboxItem>
-            <FlexboxItem className="Full_width" padding="1rem">
+            <FlexboxItem className="Full_width" padding="1rem" style={{height:"calc(100vh - 42px)",overflow:"auto"}}>
               <Routes>
                 {/* Public route accessible by all */}
                 <Route
