@@ -22,5 +22,6 @@ export interface IEvaluation{
     comments: string;
     createdBy:string;
     teamLeadId: string;
+    id: string;
 }
 
