@@ -92,7 +92,7 @@ const EmployeeList = () => {
   // console.log("KKKKKKKK",employees?.filter((empl:IEmployee)=>empl?.id === user?.uid)[0]?.teamId)
 
   const columns = isAdmin ? [
-    { title: 'Employee ID', dataIndex: 'id', key: 'id' },
+    // { title: 'Employee ID', dataIndex: 'id', key: 'id' },
     { title: 'First Name', dataIndex: 'firstName', key: 'firstName' },
     { title: 'Last Name', dataIndex: 'lastName', key: 'lastName' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
@@ -100,12 +100,14 @@ const EmployeeList = () => {
     { title: 'Team Name', dataIndex: 'teamName', key: 'teamName' },
     {
       title: '',
-      key: 'action',
+      key: 'action1',
       render: (text: any, record: IEmployee) => (
         <span>
           <Button onClick={() => showDeleteConfirm(record)}>Delete</Button>
+          <Button onClick={() => navigate(`/employees/${record?.id}`)} style={{marginLeft:"0.625rem"}}>View Report</Button>
+
         </span>
-      ),
+      )
     }
   ]
     :
@@ -118,7 +120,7 @@ const EmployeeList = () => {
       { title: 'Team Name', dataIndex: 'teamName', key: 'teamName' },
       {
         title: '',
-        key: 'action',
+        key: 'action1',
         render: (text: any, record: IEmployee) => (
           <span>
             <Button
@@ -126,6 +128,8 @@ const EmployeeList = () => {
             >
               Evaluate
             </Button>
+            <Button onClick={() => navigate(`/employees/${record?.id}`)} style={{marginLeft:"0.625rem"}}>View Report</Button>
+
           </span>
         ),
       }
