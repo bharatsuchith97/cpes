@@ -65,7 +65,7 @@ function TeamLeadDashboard() {
 
   return (
     <FlexboxContainer flexDirection="column" alignItems="flex-start" gap="2.5rem">
-      <FlexboxItem style={{ fontWeight: 500, fontSize: 20 }}>Admin Dashboard</FlexboxItem>
+      <FlexboxItem style={{ fontWeight: 500, fontSize: 20 }}>Team Lead Dashboard</FlexboxItem>
       <FlexboxItem style={{ width: "100%"}}>
         <FlexboxContainer flexDirection="column" gap="1rem" alignItems="flex-start">
           <FlexboxItem style={{ width: "100%",padding: "0.625rem", border: "1px solid #5c1233", borderRadius: "8px" }}>
