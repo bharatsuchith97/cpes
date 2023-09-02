@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 
-const baseUrl = 'https://cpesservicewebapi.azurewebsites.net/api'; // Replace with your API's base URL
+const baseUrl = 'https://localhost:44365/api'; // Replace with your API's base URL
 
 const api = axios.create({
     baseURL: baseUrl,
@@ -32,7 +32,7 @@ export const updateData = async (endpoint:string, data:any) => {
     // eslint-disable-next-line no-useless-catch
     try {
         const response = await api.put(endpoint, data);
-        return response.data;
+        return response;
     } catch (error) {
         throw error;
     }
@@ -42,7 +42,7 @@ export const deleteData = async (endpoint:string) => {
     // eslint-disable-next-line no-useless-catch
     try {
         const response = await api.delete(endpoint);
-        return response.data;
+        return response;
     } catch (error) {
         throw error;
     }

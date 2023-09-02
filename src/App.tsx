@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './src/pages/Home/Home';
+import AdminDashboard from './src/pages/AdminDashboard/AdminDashboard';
 import EmployeeList from './src/pages/EmployeeList/EmployeeList';
 // import ProtectedRoute from './ProtectedRoute';
 import LoginPage from './src/pages/LoginPage/LoginPage';
@@ -8,6 +8,9 @@ import { FlexboxContainer, FlexboxItem } from 'ui-components';
 import './App.css';
 import TeamList from './src/pages/TeamList/TeamList';
 import TeamLeadList from './src/pages/TeamLeadList/TeamLeadList';
+import TeamLeadDashboard from './src/pages/TeamLeadDashboard/TeamLeadDashboard';
+import EmployeeDashboard from './src/pages/EmployeeDashboard/EmployeeDashboard';
+import EvaluationList from './src/pages/EvaluationList/EvaluationList';
 
 function App() {
   const userString = localStorage.getItem('authDetails');
@@ -33,23 +36,52 @@ function App() {
                 {/* Public route accessible by all */}
                 <Route
                   path="/"
-                  element={user ? <Home /> : <LoginPage />}
+                  element={!user && <LoginPage />}
                 />
                 {/* Admin Routes */}
-                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && <Route
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
+                  path="/dashboard"
+                  element={<AdminDashboard />}
+                />}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
                   path="/teams"
                   element={<TeamList />}
                 />}
-                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && <Route
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
                   path="/employees"
                   element={<EmployeeList />}
                 />}
-                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Admin" && <Route
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
                   path="/teamleads"
                   element={<TeamLeadList />}
                 />}
+                 {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") && <Route
+                  path="evaluations"
+                  element={<EvaluationList />}
+                />}
+
                 {/* Team Lead Routes */}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Manager") && <Route
+                  path="/dashboard"
+                  element={<TeamLeadDashboard />}
+                />}
+                  {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Manager") && <Route
+                  path="/employees"
+                  element={<EmployeeList />}
+                />}
+                 {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Manager") && <Route
+                  path="/evaluations"
+                  element={<EvaluationList />}
+                />}
                 {/* Employee Routes */}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && <Route
+                  path="/dashboard"
+                  element={<EmployeeDashboard />}
+                />}
+                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && <Route
+                  path="/evaluations"
+                  element={<EvaluationList />}
+                />}
               </Routes>
             </FlexboxItem>
           </FlexboxContainer>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { getEmployees, getTeamLeads, getTeams, postTeam } from './redux/teamListSlice';
+import { getEmployees, getTeams, postTeam } from './redux/teamListSlice';
 import { FlexboxContainer, FlexboxItem, Button } from 'ui-components';
 import { Table, Modal, Form, Input, Select } from 'antd';
 import { RootState } from '../../../store';
@@ -18,7 +18,6 @@ const TeamList = () => {
 
   useEffect(() => {
     dispatch(getTeams());
-    dispatch(getTeamLeads());
     dispatch(getEmployees());
   }, []);
 
@@ -26,7 +25,7 @@ const TeamList = () => {
   const dataSource = teams.map((team: ITeam) => ({
     key: team.teamId,
     teamId: team?.teamId ?? '-',
-    teamCount: team?.teamMemberIds?.length ?? '-',
+    teamCount: team?.teamMembers?.length ?? '-',
     teamName: team?.teamName ?? '-',
     teamLeadId: team?.teamLeadId ?? '-'
   }));
@@ -119,16 +118,16 @@ const TeamList = () => {
             ]}
           >
             <Select placeholder="Select a team lead">
-              {teamLeads.length > 0 && teamLeads?.map((teamLead) => <Select.Option value={teamLead?.teamLeadId}>
-                {employees?.filter((employee)=> employee.id === teamLead?.employeeId)[0].firstName}&nbsp;
-                {employees?.filter((employee)=> employee.id === teamLead?.employeeId)[0].lastName}
+              {teamLeads.length > 0 && teamLeads?.map((teamLead) => <Select.Option value={teamLead?.id}>
+                {teamLead?.firstName}&nbsp;
+                {teamLead?.lastName}
                 </Select.Option>)}
             </Select>
           </Form.Item>
 
           <Form.Item
             label="Select team members"
-            name="teamMemberIds"
+            name="teamMembers"
             rules={[
               {
                 required: true,
@@ -141,15 +140,15 @@ const TeamList = () => {
               placeholder="Select multiple team members"
               style={{ width: '100%' }}
             >
-              {employees.length > 0 && employees?.map((employee) => 
+              {employees.length > 0 && employees?.filter((emp)=>emp.isTeamLead === false && emp.isAdmin === false)?.map((employee) => 
               <Select.Option value={employee?.id}>{employee?.firstName}&nbsp;{employee?.lastName}</Select.Option>)}
             </Select>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 16, span: 16 }} style={{ marginTop: "2.5rem" }}>
-            <Button type="secondary" onClick={handleCancel}>
+          <Form.Item wrapperCol={{ offset: 18, span: 18 }} style={{ marginTop: "2.5rem" }}>
+            {/* <Button type="secondary" onClick={handleCancel}>
               Cancel
-            </Button>
+            </Button> */}
             &nbsp;
             <Button type="primary" htmlType="submit">
               Create Team

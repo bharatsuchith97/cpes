@@ -4,12 +4,14 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import employeeListSlice from './src/pages/EmployeeList/redux/employeeListSlice';
 import teamListSlice from './src/pages/TeamList/redux/teamListSlice';
 import teamLeadListSlice from './src/pages/TeamLeadList/redux/teamLeadListSlice';
+import evaluationListSlice from './src/pages/EvaluationList/redux/evaluationListSlice';
 
 
 const rootReducer = combineReducers({
     employees: employeeListSlice,
     teams: teamListSlice,
-    teamLeads: teamLeadListSlice
+    teamLeads: teamLeadListSlice,
+    evaluations: evaluationListSlice
 });
 
 // FYI: Passing preloaded state for unit testing
