@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchData, sendData } from '../../../../api/api';
-import { IEmployee, ITeam, ITeamLead } from '../types/teamListTypes';
+import { ITeam } from '../types/teamListTypes';
 import { notification } from 'antd';
+import { IEmployee } from '../../EmployeeList/types/employeeListTypes';
 
 interface InitialStateType {
     isLoading: boolean;
     errorMessage: string | undefined;
     teams: Array<ITeam>;
-    teamLeads: Array<ITeamLead>,
+    teamLeads: Array<IEmployee>,
     employees: Array<IEmployee>
 }
 
@@ -66,9 +67,9 @@ export const postTeam = createAsyncThunk('postTeam', async (postData: any,{dispa
             placement: 'topRight',
         });
     }
-    catch (error) {
+    catch (error:any) {
         notification.error({
-            message: 'Team could not be created',
+            message: error?.response?.data?.title,
             placement: 'topRight',
         });
         console.log("Error in POST Team")
@@ -98,18 +99,18 @@ const teamListSlice = createSlice({
         });
 
         // GET ALL Team Leads
-        builder.addCase(getTeamLeads.pending, (state) => {
-            state.isLoading = true;
-        });
-        builder.addCase(getTeamLeads.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.teamLeads = action.payload ?? [];
-        });
+        // builder.addCase(getTeamLeads.pending, (state) => {
+        //     state.isLoading = true;
+        // });
+        // builder.addCase(getTeamLeads.fulfilled, (state, action) => {
+        //     state.isLoading = false;
+        //     state.teamLeads = action.payload ?? [];
+        // });
 
-        builder.addCase(getTeamLeads.rejected, (state, action) => {
-            state.isLoading = false;
-            state.errorMessage = action.error.message;
-        });
+        // builder.addCase(getTeamLeads.rejected, (state, action) => {
+        //     state.isLoading = false;
+        //     state.errorMessage = action.error.message;
+        // });
 
         // GET ALL Employees
         builder.addCase(getEmployees.pending, (state) => {
@@ -118,6 +119,7 @@ const teamListSlice = createSlice({
         builder.addCase(getEmployees.fulfilled, (state, action) => {
             state.isLoading = false;
             state.employees = action.payload ?? [];
+            state.teamLeads = action.payload?.filter((employee:IEmployee)=>employee?.isTeamLead === true) ?? [];
         });
 
         builder.addCase(getEmployees.rejected, (state, action) => {

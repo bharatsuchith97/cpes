@@ -1,19 +1,6 @@
 export interface ITeam {
     teamName: string;
     teamLeadId: number;
-    teamMemberIds: Array<string>;
+    teamMembers: Array<string>;
     teamId: number;
-}
-export interface ITeamLead {
-    teamName: string;
-    teamLeadId: number;
-    teamMemberIds: Array<string>;
-    teamId: number;
-    employeeId: string;
-}
-export interface IEmployee {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
 }
