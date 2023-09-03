@@ -12,15 +12,16 @@ function TeamLeadDashboard() {
   const user = userString ? JSON.parse(userString) : null;
   // const isAdmin = user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") ? true : false;
   const userId = user?.uid;
-
+  const { evaluations } = useAppSelector((state: RootState) => state.evaluations);
+  const { employees,teams } = useAppSelector((state: RootState) => state.employees);
+  
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getEmployees());
     dispatch(getTeams());
     dispatch(getEvaluations())
-  }, []);
-  const { evaluations } = useAppSelector((state: RootState) => state.evaluations);
-  const { employees,teams } = useAppSelector((state: RootState) => state.employees);
+  }, [employees,teams,evaluations]);
+
 
   const groupedData = evaluations?.filter((evalu)=>evalu?.teamLeadId === userId).reduce((groups: any, item: any) => {
     const key = item.employeeId;

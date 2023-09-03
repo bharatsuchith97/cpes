@@ -204,19 +204,19 @@ function Employee() {
         },
     };
 
-    const totalTechnicalSkillsRating = employee?.evaluations.reduce((total, item) => total + item.technicalSkillsRating, 0);
-    const totalCommunicationRating = employee?.evaluations.reduce((total, item) => total + item.communicationRating, 0);
-    const totalProblemSolvingRating = employee?.evaluations.reduce((total, item) => total + item.problemSolvingRating, 0);
-    const totalTeamworkRating = employee?.evaluations.reduce((total, item) => total + item.teamworkRating, 0);
+    const totalTechnicalSkillsRating = employee?.evaluations?.reduce((total, item) => total + item.technicalSkillsRating, 0);
+    const totalCommunicationRating = employee?.evaluations?.reduce((total, item) => total + item.communicationRating, 0);
+    const totalProblemSolvingRating = employee?.evaluations?.reduce((total, item) => total + item.problemSolvingRating, 0);
+    const totalTeamworkRating = employee?.evaluations?.reduce((total, item) => total + item.teamworkRating, 0);
 
-    const count = employee?.evaluations.length;
+    const count = employee?.evaluations?.length;
 
-    const averageTechnicalSkillsRating = (totalTechnicalSkillsRating*10 / count).toFixed(2);
-    const averageCommunicationRating = (totalCommunicationRating*10 / count).toFixed(2);
-    const averageProblemSolvingRating = (totalProblemSolvingRating*10 / count).toFixed(2);
-    const averageTeamworkRating = (totalTeamworkRating*10 / count).toFixed(2);
+    const averageTechnicalSkillsRating = count>0 ? (totalTechnicalSkillsRating*10 / count).toFixed(2):0;
+    const averageCommunicationRating = count>0 ? (totalCommunicationRating*10 / count).toFixed(2):0;
+    const averageProblemSolvingRating = count>0 ? (totalProblemSolvingRating*10 / count).toFixed(2):0;
+    const averageTeamworkRating = count>0 ? (totalTeamworkRating*10 / count).toFixed(2):0;
 
-    const averageRating = ((totalTechnicalSkillsRating+totalCommunicationRating+totalProblemSolvingRating+totalTeamworkRating)*10/(count*4)).toFixed(2)
+    const averageRating = count>0 ?((totalTechnicalSkillsRating+totalCommunicationRating+totalProblemSolvingRating+totalTeamworkRating)*10/(count*4)).toFixed(2) : 0;
 
     return (
         <FlexboxContainer alignItems="flex-start" flexDirection="column" gap="2.5rem">

@@ -89,10 +89,10 @@ function App() {
                   path="/dashboard"
                   element={<EmployeeDashboard />}
                 />}
-                {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && <Route
+                {/* {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && <Route
                   path="/evaluations"
                   element={<EvaluationList />}
-                />}
+                />} */}
               </Routes>
             </FlexboxItem>
           </FlexboxContainer>
