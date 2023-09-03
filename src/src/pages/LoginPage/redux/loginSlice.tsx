@@ -7,15 +7,16 @@ import { notification } from 'antd';
 interface InitialStateType {
     isLoading: boolean;
     errorMessage: string | undefined;
+    isAuthenticated: boolean;
 }
 
 const initialState: InitialStateType = {
     isLoading: false,
     errorMessage: '',
+    isAuthenticated: false
 };
 
 export const loginEmployees = createAsyncThunk('loginEmployees', async (data: any) => {
-    console.log(data, "data")
     try {
         const loginData = { email: data.username, password: data.password }
         const response: any = await sendData('/Account/Login', loginData);
@@ -27,7 +28,6 @@ export const loginEmployees = createAsyncThunk('loginEmployees', async (data: an
             });
             const user = jwtDecode(response?.data?.token);
             localStorage.setItem("authDetails", JSON.stringify(user));
-            window.location.reload();
             return (response.data)
         }
         notification.error({
@@ -53,17 +53,21 @@ const loginSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        // GET ALL Employees
         builder.addCase(loginEmployees.pending, (state) => {
             state.isLoading = true;
+            state.isAuthenticated = false;
+
         });
-        builder.addCase(loginEmployees.fulfilled, (state) => {
+        builder.addCase(loginEmployees.fulfilled, (state,action) => {
             state.isLoading = false;
+            state.isAuthenticated = action?.payload ? true : false;
         });
 
         builder.addCase(loginEmployees.rejected, (state, action) => {
             state.isLoading = false;
             state.errorMessage = action.error.message;
+            state.isAuthenticated = false;
+
         });
 
     }

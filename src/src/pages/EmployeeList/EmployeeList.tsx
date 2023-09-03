@@ -61,7 +61,7 @@ const EmployeeList = () => {
   }, []);
 
 
-  const dataSource = isAdmin ? employees?.map((employee: IEmployee) => ({
+  const dataSource = isAdmin ? employees?.filter((emp)=>!(emp?.isAdmin||emp?.isTeamLead))?.map((employee: IEmployee) => ({
     key: employee?.id,
     id: employee?.id ?? '-',
     firstName: employee?.firstName ?? '-',
@@ -379,7 +379,7 @@ const EmployeeList = () => {
           <FlexboxContainer style={{ width: "100%", marginTop: "2rem" }}>
             <FlexboxItem style={{ width: "100%" }}>
               Comments
-              <TextArea rows={4} placeholder="" maxLength={50} title="Comments" style={{ width: "100%" }} value={comments} onChange={(e) => { setComments(e.target.value) }} />
+              <TextArea rows={4} placeholder="" maxLength={500} title="Comments" style={{ width: "100%" }} value={comments} onChange={(e) => { setComments(e.target.value) }} />
             </FlexboxItem>
 
           </FlexboxContainer>

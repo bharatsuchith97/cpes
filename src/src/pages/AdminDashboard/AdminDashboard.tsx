@@ -110,7 +110,7 @@ function AdminDashboard() {
     data: pieData,
     angleField: 'value', // The field that represents the values
     colorField: 'category', // The field that represents the categories
-    radius: 1, // Adjust the radius to control the size of the pie chart
+    radius: 0.9, // Adjust the radius to control the size of the pie chart
     label: {
     },
     interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
@@ -132,7 +132,7 @@ function AdminDashboard() {
                 </Card>
               </FlexboxItem>
               <FlexboxItem style={{ width: "49%", padding: "0.625rem", border: "1px solid #5c1233", borderRadius: "8px" }}>
-                <Card title={<span style={{ fontWeight: 500, fontSize: 20 }}>Employee Assignment</span>} bordered={false}>
+                <Card title={<span style={{ fontWeight: 500, fontSize: 20 }}>Employee Distribution</span>} bordered={false}>
                   <div style={{  height: '300px' }}>
                 <Pie {...pieConfig} />
                   </div>

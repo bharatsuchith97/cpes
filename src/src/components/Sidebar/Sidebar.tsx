@@ -47,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
                             {user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === "Employee" && (
                                 <>
                                     <FlexboxItem className={path === "/dashboard" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/dashboard')}>Dashboard</FlexboxItem>
-                                    <FlexboxItem className={path === "/evaluations" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/evaluations')}>Evaluations</FlexboxItem>
+                                    {/* <FlexboxItem className={path === "/evaluations" ? "MenuItem_active" : "MenuItem"} padding="1rem" onClick={()=>navigate('/evaluations')}>Evaluations</FlexboxItem> */}
                                 </>
                             )}
 

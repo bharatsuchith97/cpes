@@ -6,9 +6,11 @@ import teamListSlice from './src/pages/TeamList/redux/teamListSlice';
 import teamLeadListSlice from './src/pages/TeamLeadList/redux/teamLeadListSlice';
 import evaluationListSlice from './src/pages/EvaluationList/redux/evaluationListSlice';
 import employeeSlice from './src/pages/Employee/redux/employeeSlice';
+import loginSlice from './src/pages/LoginPage/redux/loginSlice';
 
 
 const rootReducer = combineReducers({
+    login: loginSlice,
     employees: employeeListSlice,
     teams: teamListSlice,
     teamLeads: teamLeadListSlice,

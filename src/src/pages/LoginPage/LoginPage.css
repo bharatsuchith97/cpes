@@ -1,17 +1,27 @@
-.LoginPage_login-card{
+.LoginPage_login-card {
     background-color: white;
-    margin-top: 8rem;
+    background-image: url('../../../assets//li.jpg');
+    background-size: cover;
+    /* Adjust the image size */
+    background-repeat: no-repeat;
+    /* Prevent the image from repeating */
+    background-attachment: fixed;
+    /* Keep the image fixed in place */
+    height: calc(100vh - 80px);
+    width: 100%
 }
-.Full_height{
+
+.Full_height {
     height: 100%;
 }
-.LoginPage_heading{
-    color:#871b4c;
+
+.LoginPage_heading {
+    color: #871b4c;
     font-family: Roboto;
-  font-size: 1.5rem;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 0.67;
-  letter-spacing: normal;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.67;
+    letter-spacing: normal;
 }
