@@ -1,6 +1,6 @@
 export interface ITeam {
     teamName: string;
-    teamLeadId: number;
+    teamLeadId: string;
     teamMembers: Array<string>;
     teamId: number;
 }

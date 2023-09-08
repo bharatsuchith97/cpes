@@ -27,13 +27,15 @@ const TeamList = () => {
     teamId: team?.teamId ?? '-',
     teamCount: team?.teamMembers?.length ?? '-',
     teamName: team?.teamName ?? '-',
-    teamLeadId: team?.teamLeadId ?? '-'
+    teamLead: employees?.filter((employee:any)=>employee.id === team?.teamLeadId)[0]?.firstName ?? '-'
+
+    
   }));
 
   const columns = [
     { title: 'Team ID', dataIndex: 'teamId', key: 'teamId' },
     { title: 'Team Name', dataIndex: 'teamName', key: 'teamName' },
-    { title: 'Team Lead ID', dataIndex: 'teamLeadId', key: 'teamLeadId' },
+    { title: 'Team Lead', dataIndex: 'teamLead', key: 'teamLead' },
     { title: 'Team Count', dataIndex: 'teamCount', key: 'teamCount' },
   ];
 

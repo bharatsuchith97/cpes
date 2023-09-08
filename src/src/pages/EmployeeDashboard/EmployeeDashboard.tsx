@@ -14,10 +14,12 @@ function EmployeeDashboard() {
   const isAdmin = user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes("Admin") ? true : false;
   const userId = user?.uid;
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(getEmployee(userId))
     dispatch(getEmployees());
   }, [])
+
   const { employee } = useAppSelector((state: RootState) => state.employee);
   const { employees } = useAppSelector((state: RootState) => state.employees);
 

@@ -28,6 +28,7 @@ export const loginEmployees = createAsyncThunk('loginEmployees', async (data: an
             });
             const user = jwtDecode(response?.data?.token);
             localStorage.setItem("authDetails", JSON.stringify(user));
+            localStorage.setItem("token", response?.data?.token);
             return (response.data)
         }
         notification.error({
