@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
                         <FlexboxContainer flexDirection="column" gap="1rem">
                             <FlexboxItem>
                                 <TextField
-                                    title="Username"
+                                    title="Email"
                                     value={username}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                                 />

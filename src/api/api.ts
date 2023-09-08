@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 
-const baseUrl = 'https://localhost:44365/api'; // Replace with your API's base URL
+const baseUrl = 'https://cpesdeployment.azurewebsites.net/api'; // Replace with your API's base URL
+const token = localStorage.getItem('token');
 
 const api = axios.create({
     baseURL: baseUrl,
+    headers: {
+        'Authorization': `Bearer ${token}` // Include the token in the 'Authorization' header
+      }
 });
 
 

@@ -52,7 +52,7 @@ const TeamLeadList = () => {
     {
       title: '',
       key: 'action',
-      render: (text:any, record:any) => (
+      render: (text:string, record:any) => (
         <span>
           <Button onClick={() => showDeleteConfirm(record)}>Delete</Button>
         </span>

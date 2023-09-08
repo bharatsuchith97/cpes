@@ -61,7 +61,7 @@ const EmployeeList = () => {
   }, []);
 
 
-  const dataSource = isAdmin ? employees?.filter((emp)=>!(emp?.isAdmin||emp?.isTeamLead))?.map((employee: IEmployee) => ({
+  const dataSource = isAdmin ? employees?.filter((emp) => !(emp?.isAdmin || emp?.isTeamLead))?.map((employee: IEmployee) => ({
     key: employee?.id,
     id: employee?.id ?? '-',
     firstName: employee?.firstName ?? '-',
@@ -104,7 +104,7 @@ const EmployeeList = () => {
       render: (text: any, record: IEmployee) => (
         <span>
           <Button onClick={() => showDeleteConfirm(record)}>Delete</Button>
-          <Button onClick={() => navigate(`/employees/${record?.id}`)} style={{marginLeft:"0.625rem"}}>View Report</Button>
+          <Button onClick={() => navigate(`/employees/${record?.id}`)} style={{ marginLeft: "0.625rem" }}>View Report</Button>
 
         </span>
       )
@@ -128,7 +128,7 @@ const EmployeeList = () => {
             >
               Evaluate
             </Button>
-            <Button onClick={() => navigate(`/employees/${record?.id}`)} style={{marginLeft:"0.625rem"}}>View Report</Button>
+            <Button onClick={() => navigate(`/employees/${record?.id}`)} style={{ marginLeft: "0.625rem" }}>View Report</Button>
 
           </span>
         ),
@@ -158,6 +158,11 @@ const EmployeeList = () => {
         teamLeadId: userId
       }
       dispatch(postEvaluation(objectToSend));
+      setTechnicalSkills(0);
+      setCommunication(0);
+      setProblemSolving(0);
+      setTeamWork(0);
+      setComments("");
       setEvaluationModalVisible(false);
     }
   }
